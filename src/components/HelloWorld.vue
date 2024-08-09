@@ -2,7 +2,7 @@
   <div class="container mx-auto">
     <div class="flex-row justify-center md:flex md:justify-evenly">
       <div class="w-full md:w-1/2 p-2">
-        <h1 class="md:font-bold border-b-2 text-xl">Todos</h1>
+        <h1 class="font-bold border-b-2 text-xl">Todos</h1>
         <ul>
           <template v-if="sortedTodos.length === 0">
             <li class="p-2 my-2">
