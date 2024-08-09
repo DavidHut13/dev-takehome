@@ -20,7 +20,7 @@ export const useTodoStore = defineStore("todo", {
         );
         this.todos = response.data.todos || []
       } catch (error) {
-        console.log("Error fetching Data from Dummy JSON API.");
+        console.log("Dummy API Error:", error);
       }
     },
   },
