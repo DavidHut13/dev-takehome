@@ -3,14 +3,7 @@ import axios from "axios";
 
 export const useTodoStore = defineStore("todo", {
   state: () => ({
-    todos: [
-      { id: 1, text: "...", completed: false },
-      { id: 2, text: "...", completed: false },
-    ],
-    completedTodos: [
-      { id: 1, text: "...", completed: true },
-      { id: 2, text: "...", completed: true },
-    ],
+    todos: [],
   }),
   actions: {
     async fetchTodos() {

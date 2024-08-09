@@ -4,7 +4,15 @@
       <div class="w-full md:w-1/2 p-2">
         <h1 class="md:font-bold border-b-2 text-xl">Todos</h1>
         <ul>
-          <li v-for="todo in sortedTodos" class="shadow-md rounded bg-gray-100 border-gray p-2 my-2">
+          <template v-if="sortedTodos.length === 0">
+            <li class="p-2 my-2">
+              <div>No Todos yet.</div>
+            </li>
+          </template>
+          <li
+            v-for="todo in sortedTodos"
+            class="shadow-md rounded bg-gray-100 border-gray p-2 my-2"
+          >
             <div>
               <div>{{ todo.todo }}</div>
               <div></div>
@@ -12,10 +20,18 @@
           </li>
         </ul>
       </div>
-      <div  class="w-full md:w-1/2 p-2">
+      <div class="w-full md:w-1/2 p-2">
         <h1 class="font-bold border-b-2 text-xl">Completed</h1>
         <ul>
-          <li v-for="todo in sortedCompleted" class="shadow-md rounded bg-gray-100 border-gray p-2 my-2">
+          <template v-if="sortedCompleted.length === 0">
+            <li class="p-2 my-2">
+              <div>No completed todos yet.</div>
+            </li>
+          </template>
+          <li
+            v-for="todo in sortedCompleted"
+            class="shadow-md rounded bg-gray-100 border-gray p-2 my-2"
+          >
             <div>
               <div>{{ todo.todo }}</div>
               <div></div>
@@ -39,13 +55,12 @@ export default {
       todoStore.fetchTodos();
     });
 
-
     const sortedTodos = computed(() => {
-      return commonUtils.sortByDescription(todoStore.inProgressTodos)
-    })
+      return commonUtils.sortByDescription(todoStore.inProgressTodos);
+    });
     const sortedCompleted = computed(() => {
-      return commonUtils.sortByDescription(todoStore.completedTodos)
-    })
+      return commonUtils.sortByDescription(todoStore.completedTodos);
+    });
 
     return {
       sortedCompleted,
