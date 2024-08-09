@@ -1,29 +1,31 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { defineStore } from "pinia";
+import axios from "axios";
 
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
-  state: {
-    todos: [],
-  },
-  mutations: {
-    setState(state) {
-      state.todos = [
-        { id: 1, text: '...', done: true },
-        { id: 2, text: '...', done: false },
-      ];
-    },
-  },
+export const useTodoStore = defineStore("todo", {
+  state: () => ({
+    todos: [
+      { id: 1, text: "...", completed: false },
+      { id: 2, text: "...", completed: false },
+    ],
+    completedTodos: [
+      { id: 1, text: "...", completed: true },
+      { id: 2, text: "...", completed: true },
+    ],
+  }),
   actions: {
-    fetchTodos(context) {
-      // TODO: replace this with an API call to 'https://dummyjson.com/todos'
-      context.commit('setState');
+    async fetchTodos() {
+      try {
+        const response = await axios.get(
+          "https://dummyjson.com/todos?limit=10"
+        );
+        this.todos = response.data.todos || []
+      } catch (error) {
+        console.log("Error fetching Data from Dummy JSON API.");
+      }
     },
   },
   getters: {
-    doneTodos: (state) => [...state.todos].filter((todo) => todo.done) || [],
+    completedTodos: (state) => state.todos.filter((todo) => todo.completed),
+    inProgressTodos: (state) => state.todos.filter((todo) => !todo.completed),
   },
 });
-
-export default store;
